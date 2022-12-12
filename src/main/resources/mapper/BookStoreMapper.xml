@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.BookStoreMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.BookStore">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="maxNum" column="maxNum" jdbcType="INTEGER"/>
+        <result property="minNum" column="minNum" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,maxNum,minNum
+    </sql>
+
+    <select id = "findAllBookstore" resultMap="Base_Result_Map">
+        SELECT * FROM bookstore
+    </select>
+
+    <select id = "findBookstoreById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM bookstore WHERE id=#{id}
+    </select>
+
+    <select id = "findBookstoreByName" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM bookstore WHERE name=#{name}
+    </select>
+
+    <insert id = "insertBookstore" parameterType="com.example.Comp3005.entity.BookStore">
+        INSERT INTO bookstore VALUES(#{id},#{name},#{maxNum},#{minNum})
+    </insert>
+
+    <update id = "updateBookstore" parameterType="com.example.Comp3005.entity.BookStore">
+        UPDATE bookstore SET name=#{name},maxNum=#{maxNum},minNum=#{minNum} WHERE id=#{id}
+    </update>
+
+    <delete id = "deleteBookstoreById" parameterType="java.lang.Long">
+        DELETE FROM bookstore WHERE id=#{id}
+    </delete>
+</mapper>

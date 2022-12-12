@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.UserMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phoneNumber" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="access" column="access" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account,password,
+        name,address,gender,
+        phoneNumber,email,access
+    </sql>
+
+    <select id = "findAllUser" resultMap="Base_Result_Map">
+        SELECT * FROM user
+    </select>
+
+    <select id = "findUserById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM user WHERE id=#{id}
+    </select>
+
+    <select id = "findUserByAccount" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM user WHERE account=#{account}
+    </select>
+
+    <select id = "findUserByName" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM user WHERE name=#{name}
+    </select>
+
+    <select id = "findUserByPhoneNumber" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM user WHERE phoneNumber=#{phoneNumber}
+    </select>
+
+    <select id = "findUserByEmail" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM user WHERE email=#{email}
+    </select>
+
+    <select id = "findUserByAccountAndAccess" resultMap="Base_Result_Map">
+        SELECT * FROM user WHERE account=#{account} AND access=#{access}
+    </select>
+
+    <insert id = "insertUser" parameterType="com.example.Comp3005.entity.User">
+        INSERT INTO user VALUES(#{id},#{account},#{password},#{name},#{address},#{gender},#{phoneNumber},#{email},#{access})
+    </insert>
+
+    <update id = "updateUser" parameterType="com.example.Comp3005.entity.User">
+        UPDATE user SET account=#{account},password=#{password},name=#{name},address=#{address},gender=#{gender},phoneNumber=#{phoneNumber},email=#{email},access=#{access} WHERE id=#{id}
+    </update>
+
+    <delete id = "deleteUserById" parameterType="java.lang.String">
+        DELETE * FROM user WHERE id=#{id}
+    </delete>
+</mapper>

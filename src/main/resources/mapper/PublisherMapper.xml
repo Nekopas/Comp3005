@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.PublisherMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.Publisher">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phoneNumber" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,bankAccount_id,name,address,phoneNumber,email
+    </sql>
+
+    <select id = "findPublisherById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM publisher WHERE id=#{id}
+    </select>
+
+    <select id = "findPublisherByName" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM publisher WHERE name=#{name}
+    </select>
+
+    <select id = "findPublisherByPhoneNumber" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM publisher WHERE phoneNumber=#{phoneNumber}
+    </select>
+    
+    <select id = "findPublisherByEmail" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM publisher WHERE email=#{email}
+    </select>
+
+    <insert id = "insertPublisher" parameterType="com.example.Comp3005.entity.Publisher">
+        INSERT INTO publisher VALUES(#{id},#{name},#{address},#{phoneNumber},#{email})
+    </insert>
+
+    <update id = "updatePublisher" parameterType="com.example.Comp3005.entity.Publisher">
+        UPDATE publisher SET name=#{name},address=#{address},email=#{email} WHERE id=#{id}
+    </update>
+
+    <delete id = "deletePublisherById" parameterType="java.lang.Long">
+        DELETE FROM publisher WHERE id=#{id}
+    </delete>
+</mapper>

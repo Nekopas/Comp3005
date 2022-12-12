@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.BankAccountMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.BankAccount">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="balance" column="balance" jdbcType="FLOAT"/>
+        <result property="owner_id" column="owner_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,balance,owner_id
+    </sql>
+
+    <select id = "findBankAccountById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM bankaccount WHERE id=#{id}
+    </select>
+
+    <select id = "findBankAccountByOwnerId" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM bankaccount WHERE owner_id=#{owner_id}
+    </select>
+
+    <insert id="insertBankAccount" parameterType="com.example.Comp3005.entity.BankAccount">
+        INSERT INTO bankaccount VALUES(#{id},#{balance},#{owner_id});
+    </insert>
+
+    <update id="updateBankAccount" parameterType="com.example.Comp3005.entity.BankAccount">
+        UPDATE bankaccount SET balance=#{balance},owner_id=#{owner_id} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteBankAccountById" parameterType="java.lang.Long">
+        DELETE FROM bankaccount WHERE id=#{id}
+    </delete>
+</mapper>

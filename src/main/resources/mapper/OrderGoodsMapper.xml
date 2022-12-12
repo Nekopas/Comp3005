@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.OrderGoodsMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.OrderGoods">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="goods_id" column="goods_id" jdbcType="BIGINT"/>
+        <result property="order_id" column="order_id" jdbcType="BIGINT"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,goods_id,order_id,number
+    </sql>
+
+    <select id = "findOrderGoodsById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM ordergoods WHERE id=#{id};
+    </select>
+
+    <select id = "findOrderGoodsByGoodsId" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM ordergoods WHERE goods_id=#{gid};
+    </select>
+
+    <select id = "findOrderGoodsByOrderId" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM ordergoods WHERE order_id=#{oid};
+    </select>
+
+    <insert id="insertOrderGoods" parameterType="com.example.Comp3005.entity.OrderGoods">
+        INSERT INTO ordergoods VALUES(#{id},#{goods_id},#{order_id},#{number});
+    </insert>
+
+    <update id="updateOrderGoods" parameterType="com.example.Comp3005.entity.OrderGoods">
+        UPDATE ordergoods SET goods_id=#{goods_id},order_id=#{order_id},number=#{number} WHERE id=#{id};
+    </update>
+
+    <delete id="deleteOrderGoodsById" parameterType="java.lang.Long">
+        DELETE FROM ordergoods WHERE id=#{id};
+    </delete>
+
+    <delete id="deleteOrderGoodsByOrderId" parameterType="java.lang.Long">
+        DELETE FROM ordergoods WHERE order_id=#{oid};
+    </delete>
+</mapper>

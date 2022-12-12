@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Comp3005.mapper.BookMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.Comp3005.entity.Book">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+        <result property="genre" column="genre" jdbcType="VARCHAR"/>
+        <result property="numberOfPage" column="numberOfPage" jdbcType="INTEGER"/>
+        <result property="inStoreNumber" column="inStoreNumber" jdbcType="INTEGER"/>
+        <result property="previousSale" column="previousSale" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="FLOAT"/>
+        <result property="percentage" column="percentage" jdbcType="FLOAT"/>
+        <result property="publisher_id" column="publisher_id" jdbcType="BIGINT"/>
+        <result property="bookstore_id" column="bookstore_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,author,isbn,genre,numberOfPage,inStoreNumber,previousSale,price,percentage,publisher_id,bookstore_id
+    </sql>
+
+    <select id = "findAllBook" resultMap="Base_Result_Map">
+        SELECT * FROM book
+    </select>
+
+    <select id = "findBookById" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM book WHERE id=#{id}
+    </select>
+
+    <select id = "findBookByTitle" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM book WHERE title like '%${title}%'
+    </select>
+
+    <select id = "findBookByGenre" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM book WHERE genre=#{genre}
+    </select>
+
+    <select id = "findBookByISBN" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM book WHERE isbn=#{isbn}
+    </select>
+
+    <select id = "findBookByPublisher" resultMap="Base_Result_Map" parameterType="java.lang.Long">
+        SELECT * FROM book WHERE publisher_id=#{publisher}
+    </select>
+
+    <select id = "findBookByInput" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT * FROM book WHERE title like '%${input}%' or author like '%${input}%' or genre like '%${input}%' or isbn like '%${input}%'
+    </select>
+
+    <insert id="insertBook" parameterType="com.example.Comp3005.entity.Book">
+        INSERT INTO book VALUES(#{id},#{title},#{author},#{isbn},#{genre},#{numberOfPage},#{inStoreNumber},#{previousSale},#{price},#{percentage},#{publisher_id},#{bookstore_id});
+    </insert>
+
+    <update id="updateBook" parameterType="com.example.Comp3005.entity.Book">
+        UPDATE book SET title=#{title},author=#{author},isbn=#{isbn},genre=#{genre},numberOfPage=#{numberOfPage},
+        inStoreNumber=#{inStoreNumber},previousSale=#{previousSale},price=#{price},percentage=#{percentage} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteBookById" parameterType="java.lang.Long">
+        DELETE FROM book WHERE id=#{id}
+    </delete>
+</mapper>
